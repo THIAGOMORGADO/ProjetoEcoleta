@@ -1,0 +1,53 @@
+Arguments: 
+  /usr/bin/node /usr/share/yarn/bin/yarn.js knex:migrate
+
+PATH: 
+  /home/thiagomorgado/.zinit/polaris/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/thiagomorgado/android-studio/bin:/home/thiagomorgado/Android/Sdk/emulator:/home/thiagomorgado/Android/Sdk/tools:/home/thiagomorgado/Android/Sdk/tools/bin:/home/thiagomorgado/Android/Sdk/platform-tools:/home/thiagomorgado/android-studio/bin:/home/thiagomorgado/Android/Sdk/emulator:/home/thiagomorgado/Android/Sdk/tools:/home/thiagomorgado/Android/Sdk/tools/bin:/home/thiagomorgado/Android/Sdk/platform-tools
+
+Yarn version: 
+  1.22.5
+
+Node version: 
+  12.20.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/thiagomorgado/Desktop/ProjetoEcoleta/server/package.json: Unexpected token } in JSON at position 229
+      at JSON.parse (<anonymous>)
+      at /usr/share/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/share/yarn/lib/cli.js:310:30)
+      at /usr/share/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "dev": "npx ts-node-dev src/server.ts",
+      "knex:migrate": "knex migrate:latest --knexfile knexfile.ts migrate:latest",
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "express": "^4.17.1",
+      "knex": "^0.21.15",
+      "sqlite3": "^4.2.0"
+    },
+    "devDependencies": {
+      "@types/express": "^4.17.11",
+      "ts-node-dev": "^1.1.1",
+      "typescript": "^4.1.3"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
