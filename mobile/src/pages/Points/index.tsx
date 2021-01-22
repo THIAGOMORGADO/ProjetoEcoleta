@@ -34,8 +34,8 @@ const Points = () => {
           onPress={handleNavigationToDetails}
           style={styles.mapMarker}
           coordinate={{
-            latitude: -23.6402123,
-            longitude: -46.7338585,
+            latitude: -23.64018687847222,
+            longitude:  -46.73167694661116,
           }}
           >
             <View style={styles.mapMarkerContainer}>
@@ -43,7 +43,23 @@ const Points = () => {
                 style={styles.mapMarkerImage} 
                 source={{uri: 'https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8bWFya2V0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60'}} 
               />
-              <Text style={styles.mapMarkerTitle}>Ponto</Text>
+              <Text style={styles.mapMarkerTitle}>Ponto Ecologio</Text>
+            </View>
+          </Marker>
+          <Marker 
+          onPress={handleNavigationToDetails}
+          style={styles.mapMarker}
+          coordinate={{
+            latitude: -23.642716368810195,
+            longitude: -46.733113489924875,
+          }}
+          >
+            <View style={styles.mapMarkerContainer}>
+              <Image
+                style={styles.mapMarkerImage} 
+                source={{uri: 'https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8bWFya2V0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60'}} 
+              />
+              <Text style={styles.mapMarkerTitle}>Ponto Ecologio</Text>
             </View>
           </Marker>
         </MapView>
