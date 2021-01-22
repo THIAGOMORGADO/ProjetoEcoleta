@@ -27,6 +27,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "android": {
+      "package": "com.EcoletaNlw.Ecoleta",
+      "versionCode": 1
+    },
+    "owner": "morgadosolutions"
   }
 }
