@@ -19,6 +19,7 @@ class PointsController {
 
      return res.json(point)
   }
+  
   async show (req: Request, res: Response) {
     const {id} = req.params;
 

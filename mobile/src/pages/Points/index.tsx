@@ -6,21 +6,36 @@ import MapView, {Marker} from 'react-native-maps';
 import {SvgUri} from 'react-native-svg'
 import api from '../../service/api';
 import * as Location from 'expo-location'
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 interface Item {
   id: number;
   title: string;
   image_url: string;
 }
+interface Point {
+  id: number,
+  name: string,
+  image: string,
+  latitude: number,
+  longitude: number,
 
-
+}
+interface Params {
+  uf: string;
+  city: string;
+}
 const Points = () => {
   const [items, setItems] = useState<Item[]>([]);
+  const [points, setPoints] = useState<Point[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0,0])
+
   const navigation = useNavigation();
-  
+  const route = useRoute();
+
+  const routeParams = route.params as Params;
+
   useEffect(()=> {
     async function loadPosition() {
       const { status } = await Location.requestPermissionsAsync();
@@ -47,12 +62,23 @@ const Points = () => {
       setItems(Response.data)
     });
   }, []);
-
+  useEffect(() => {
+    api.get('points',{
+      params:{
+        city: routeParams.city,
+        uf: routeParams.uf,
+        items: selectedItems
+      }
+    }).then(response =>{
+      setPoints(response.data);
+    })
+  }, [selectedItems])
+  
   function handleNavigationBack(){
     navigation.goBack();
   }
-  function handleNavigationToDetails(){
-    navigation.navigate('Details')
+  function handleNavigationToDetails(id: number){
+    navigation.navigate('Details', {  point_id: id})
   }
   function handleSelectItem(id: number){
     const alreadySelected = selectedItems.findIndex(item => item === id);
@@ -83,38 +109,28 @@ const Points = () => {
                 latitudeDelta: 0.014,
                 longitudeDelta: 0.014,
         }}>
-          <Marker 
-          onPress={handleNavigationToDetails}
-          style={styles.mapMarker}
-          coordinate={{
-            latitude: -23.64018687847222,
-            longitude:  -46.73167694661116,
-          }}
-          >
-            <View style={styles.mapMarkerContainer}>
-              <Image
-                style={styles.mapMarkerImage} 
-                source={{uri: 'https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8bWFya2V0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60'}} 
-              />
-              <Text style={styles.mapMarkerTitle}>Ponto Ecologio</Text>
-            </View>
-          </Marker>
-          <Marker 
-          onPress={handleNavigationToDetails}
-          style={styles.mapMarker}
-          coordinate={{
-            latitude: -23.642716368810195,
-            longitude: -46.733113489924875,
-          }}
-          >
-            <View style={styles.mapMarkerContainer}>
-              <Image
-                style={styles.mapMarkerImage} 
-                source={{uri: 'https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8bWFya2V0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60'}} 
-              />
-              <Text style={styles.mapMarkerTitle}>Ponto Ecologio</Text>
-            </View>
-          </Marker>
+         {
+           points.map(point => (
+            <Marker 
+            key={String(point.id)}
+            onPress={() => handleNavigationToDetails(point.id)}
+            style={styles.mapMarker}
+            coordinate={{
+              latitude: point.latitude,
+              longitude:  point.longitude,
+            }}
+            >
+              <View style={styles.mapMarkerContainer}>
+                <Image
+                  style={styles.mapMarkerImage} 
+                  source={{uri: point.image}} 
+                />
+                <Text style={styles.mapMarkerTitle}>{point.name}</Text>
+              </View>
+            </Marker>
+           ))
+         }
+          
         </MapView>
           )
         }
